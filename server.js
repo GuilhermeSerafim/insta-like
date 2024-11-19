@@ -1,6 +1,6 @@
 import express from "express";
 
-// Mocando dados
+// Mockando dados
 const posts = [
     {
         desc: "Foto teste",
@@ -40,13 +40,28 @@ const posts = [
     }
 ];
 
+
+
 const app = express();
+// Configura o middleware para que o servidor consiga interpretar o corpo de requisições no formato JSON.
+app.use(express.json());
+
+/*
+    O que é middleware em Express?
+    No Express, um middleware é qualquer função que processa requisições e respostas. Ele pode ser usado para:
+
+    Adicionar funcionalidades à aplicação (por exemplo, autenticação, manipulação de erros).
+    Processar o corpo da requisição (como interpretar JSON).
+    Registrar logs de requisições.
+    Permitir ou negar acesso a determinadas rotas. 
+*/
+
 app.listen(3000, () => {
     console.log("Serv listening");
 });
 
-app.get("/api", (req, res) => {
-    res.status(200).send("Hello World");
+app.get("/posts", (req, res) => {
+    res.status(200).json(posts);
 });
 
 app.get("/livro", (req, res) => {
